@@ -13,6 +13,7 @@
 
 	<title>My Angular App</title>
 </head>
+
 <body ng-controller="MainCtrl">
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
@@ -20,12 +21,14 @@
 		</div>		
 	</div>
 
+
+	<!-- home page  -->
 	<script type="text/ng-template" id="/home.html">
-		// header
+		<!-- header -->
 		<div class="page-header">
 			<h1>Flapper News</h1>
 		</div>
-		// index of posts
+		<!-- index of posts -->
 		<div ng-repeat="post in posts | orderBy: '-upvotes'">
 			<span class="glyphicon glyphicon-thumbs-up" ng-click="incrementUpvotes(post)"></span>
 			{{ post.upvotes }}
@@ -37,8 +40,11 @@
 					{{ post.title }}
 				</span>
 			</span>
+			<span>
+				<a href="#/posts/{{$index}}">Comments</a>
+			</span>
 		</div>
-		// form to add new post
+		<!-- form to add new post -->
 		<form ng-submit="addPost()" style="margin-top:30px;">
 			<h3>Add a new post</h3>
 
@@ -50,6 +56,27 @@
 			</div>
 			<button type="submit" class="btn btn-primary">POST</button>
 		</form>
+	</script>
+	<!-- post show page -->
+	<script type="text/ng-template" id="/posts.html">
+		<div class="page-header">
+			<h3>
+				<a ng-show="post.link" href="{{post.link}}">
+					{{post.title}}
+				</a>
+				<span ng-hide="post.link">
+					{{post.title}}
+				</span>
+			</h3>
+		</div>
+
+		<div ng-repeat="comment in post.comments | orderBy:'-upvotes'">
+			<span class="glyphicon glyphicon-thumbs-up" ng-click="incrementUpvotes(comment)"></span>
+			{{comment.upvotes}} - by {{comment.author}}
+			<span style="font-size:20px; margin-left:10px;">
+				{{comment.body}}
+			</span>
+		</div>
 	</script>
 </body>
 </html>
