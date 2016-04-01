@@ -59,6 +59,7 @@
 	</script>
 	<!-- post show page -->
 	<script type="text/ng-template" id="/posts.html">
+	<!-- header -->
 		<div class="page-header">
 			<h3>
 				<a ng-show="post.link" href="{{post.link}}">
@@ -69,7 +70,7 @@
 				</span>
 			</h3>
 		</div>
-
+		<!-- index of comments -->
 		<div ng-repeat="comment in post.comments | orderBy:'-upvotes'">
 			<span class="glyphicon glyphicon-thumbs-up" ng-click="incrementUpvotes(comment)"></span>
 			{{comment.upvotes}} - by {{comment.author}}
@@ -77,6 +78,15 @@
 				{{comment.body}}
 			</span>
 		</div>
+		<!-- form to add new comment -->
+		<form ng-submit="addComment()" style="margin-top:30px;">
+			<h3>Add a new comment</h3>
+
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Comment" ng-model="body"></input>
+			</div>
+			<button type="submit" class="btn btn-primary">Post</button>
+		</form>
 	</script>
 </body>
 </html>
