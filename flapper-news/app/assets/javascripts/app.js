@@ -17,7 +17,12 @@ angular.module('flapperNews', ['ui.router', 'templates'])
         .state('posts', {
           url: '/posts/{id}', //{id} is route param
           templateUrl: 'posts/_posts.html',
-          controller: 'PostsCtrl'
+          controller: 'PostsCtrl',
+          resolve: {
+            post: ['$stateParams', 'posts', function($stateParams, posts) {
+              return posts.get($stateParams.id);
+            }]
+          }
         });
       //direct to home route if URL is not defined
       $urlRouterProvider.otherwise('home');
