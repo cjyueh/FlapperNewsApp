@@ -1,4 +1,16 @@
-angular.module('flapperNews', [])
+angular.module('flapperNews', ['ui.router'])
+  .config([
+    '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+      $stateProvider
+        //set home route
+        .state('home', {
+          url: '/home',
+          templateUrl: '/home.html',
+          controller: 'MainCtrl'
+        });
+      //direct to home route if URL is not defined
+      $urlRouterProvider.otherwise('home');
+  }])
   .factory('posts', [function() {
     var o = {
       posts: []
